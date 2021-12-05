@@ -9,6 +9,7 @@ App({
     // 登录
     wx.login({
       success(res) {
+        console.log(res.code);
         if (res.code) {
           wx.request({
             url: 'http://localhost:8080/getOpenid',
@@ -16,6 +17,7 @@ App({
               code: res.code
             },
             success: function (res) {
+              console.log(res);
               console.log(res.data)
             }
           })

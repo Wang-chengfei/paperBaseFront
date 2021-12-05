@@ -39,9 +39,9 @@ Page({
       },
       success (res) {
         console.log(res.data)
-        var adata = res.data
+        var adata = res.data.data
 
-        if(res.data.type == 0){
+        if(adata.type == 0){
           that.setData({
             chanceType:"单选",
             chanceB:true,
@@ -94,6 +94,7 @@ Page({
 
          that.setData({
            option,
+           content: adata.content,
            answer:adata.answer
          })
 
