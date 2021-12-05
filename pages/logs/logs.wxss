@@ -1,8 +1,43 @@
-.log-list {
+/**index.wxss**/
+
+.userinfo {
   display: flex;
   flex-direction: column;
-  padding: 40rpx;
+  align-items: center;
+  color: #aaa;
 }
-.log-item {
-  margin: 10rpx;
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.usermotto {
+  margin-top: 100rpx;
+  width: 500rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.terecord, .exrecord{
+  width: 200rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+
+  text-align: center;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  color: white;
+  font-weight: bold;
+}
+
+.terecord{
+  background-color: aqua;
+}
+
+.exrecord{
+  background-color: chocolate;
 }
