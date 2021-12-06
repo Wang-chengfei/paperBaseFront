@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/exercise/exercise",
     "pages/record/record",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/score/score"
   ],
   "window": {
     "backgroundTextStyle": "light",

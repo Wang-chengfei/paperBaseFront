@@ -103,8 +103,8 @@ Page({
   },
 
   handIsAnswer(){
-    
     if(this.data.buttonT == "提交"){
+
       this.setData({
         isAnswer:true,
         buttonT:"下一题"

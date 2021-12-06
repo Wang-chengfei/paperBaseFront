@@ -1,0 +1,4 @@
+<!--pages/score/score.wxml-->
+<view class="container">
+<text>{{allScore}}</text> 分
+</view>

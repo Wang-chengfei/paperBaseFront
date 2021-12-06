@@ -1,2 +1,44 @@
 <!--pages/test/test.wxml-->
-<text>pages/test/test.wxml</text>
+<view class="contain"
+>
+  <view class="chance-type">{{optionListOne.chanceType}}</view>
+  <view class="topic">
+  {{optionIndex+1}}.{{optionListOne.content}}
+  </view>
+  <!-- 单选 -->
+  <view class="option_wrap" wx:if = "{{optionListOne.chanceB}}">
+    <view class="option_item"
+    wx:for="{{optionListOne.option}}"
+    wx:key="*this"
+    wx:for-item="item2"
+    data-index="{{index}}"
+    bindtap="handIsSelete">
+      <view class="option_icon"><view class="{{index === optionListOne.iconIndex? 'iconplus' :''}}">{{item2.icon}}</view></view>
+      <view class="option_content">{{item2.optionContent}}</view>
+    </view>
+  </view>
+
+  <!-- 多选 -->
+  <view class="option_wrap" wx:if = "{{!optionListOne.chanceB}}">
+    <view class="option_item"
+    wx:for="{{optionListOne.option}}"
+    wx:key="*this"
+    wx:for-item="item2"
+    data-index="{{index}}"
+    bindtap="handIsSeleteMul">
+      <view class="option_icon"><view class="{{item2.selected? 'iconplus' :''}}">{{item2.icon}}</view></view>
+      <view class="option_content">{{item2.optionContent}}</view>
+    </view>
+  </view>
+</view>
+
+<view class="botton">
+  <view class="but">
+    <button type="primary"  bindtap="handLast" wx:if ="{{optionIndex === 0? false:true}}">上一题</button>
+    <button type="primary"  bindtap="handNext">{{buttonT}}</button>
+  </view>
+</view>
+
+
+
+

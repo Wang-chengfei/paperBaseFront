@@ -1,66 +1,234 @@
 // pages/test/test.js
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    optionList:[{
+      chanceType:"单选",
+      chanceB:true,
+      iconIndex:"", 
+      content:"wwwwwwwwwwwwwwwwwwwwwwww",
+      option:[
+        {
+          icon:"A",
+          optionContent:"sssssssssssssssssss",
+          selected:false
+        },
+        {
+          icon:"B",
+          optionContent:"sssssssssssssssssss",
+          selected:false
+        }
+      ],
+      answer:"B",
+    },
+    {
+      chanceType:"多选",
+      chanceB:false,
+      iconIndex:"", 
+      content:"wwwwwwwwwwwwwwwwwwwwwwww",
+      option:[
+        {
+          icon:"A",
+          optionContent:"dddddddddddddddddddddd",
+          selected:false
+        },
+        {
+          icon:"B",
+          optionContent:"dddddddddddddddddddddddd",
+          selected:false
+        }
+      ],
+      answer:"B",
+    },
+  ],  
+    optionIndex:0,
+    // 单个题目
+    optionListOne:{},
+    sanswer:[],
+    buttonT:"下一题",
+    allScore:0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function () {
+    this.getQuestion()
+    var optionListOne = this.data.optionList[this.data.optionIndex]
+    this.setData({
+      optionListOne
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  getQuestion(){
+    var that = this
+    wx.request({
+      url: 'http://localhost:8080/paper/getOne', //仅为示例，并非真实的接口地址
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(res.data)
+        var adata = res.data.data
 
+        var optionList = []
+
+        adata.forEach(function(item, index){
+          if(item.type == 0){
+            optionList[index].chanceType = "单选"
+            optionList[index].chanceB = true
+            
+          }else{
+            optionList[index].chanceType = "多选"
+            optionList[index].chanceB = false
+          }
+          var option = [
+            {
+              icon:"A",
+              optionContent:item.optionA,
+              selected:false
+            },
+            {
+              icon:"B",
+              optionContent:item.optionB,
+              selected:false
+            },
+            {
+              icon:"C",
+              optionContent:item.optionC,
+              selected:false
+            },
+            {
+              icon:"D",
+              optionContent:item.optionD,
+              selected:false
+            },
+          ]
+          
+          if(item.optionE != null){
+           var roption = [
+            {
+              icon:"E",
+              optionContent:item.optionE,
+              selected:false
+            },
+            {
+              icon:"F",
+              optionContent:item.optionF,
+              selected:false
+            },
+           ]
+            option = option.concat(roption)
+           }
+
+           optionList[index].option = option
+           optionList[index].content = item.content 
+           optionList[index].answer = item.answer 
+        })
+        
+
+         that.setData({
+           optionList,
+         })
+
+        }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  handLast(){
+    var optionIndex = this.data.optionIndex - 1
+    var optionListOne = this.data.optionList[optionIndex]
+    this.setData({
+      optionIndex,
+      optionListOne,
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  handNext(){
+    var sanswer = this.data.sanswer
+    var that = this
+    if(this.data.optionListOne.chanceB == false){
+      this.data.optionListOne.option.forEach(function(item, index){
+        if(item.selected == true){
+          if(sanswer[that.data.optionIndex] != undefined){
+            sanswer[that.data.optionIndex] = sanswer[that.data.optionIndex] + item.icon
+          }else{
+            sanswer[that.data.optionIndex] = item.icon
+          }         
+        }
+      })
+    }
+    this.setData({
+      sanswer
+    })
 
+    var optionIndex = this.data.optionIndex + 1
+    var optionListOne = this.data.optionList[optionIndex]
+    console.log(this.data.optionList.length + 1+ "" +optionIndex);
+    
+    if( optionIndex == this.data.optionList.length - 1 ){
+      this.setData({
+        optionIndex,
+        optionListOne,
+        buttonT:"提交"
+      })
+    }else if(optionIndex == this.data.optionList.length ){
+      this.getScore()
+    }else{
+      this.setData({
+        optionIndex,
+        optionListOne,
+      })
+    }
+   
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+  handIsSelete(e){
+    const {index}=e.currentTarget.dataset;
+    var optionListOne = this.data.optionListOne
+    var optionList = this.data.optionList
+    optionListOne.iconIndex = index
+    optionList[this.data.optionIndex] = optionListOne
 
+    var sanswer = this.data.sanswer
+    
+    sanswer[this.data.optionIndex] = optionListOne.option[index].icon
+    this.setData({
+      optionList,
+      optionListOne,
+      sanswer,
+    }) 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+  handIsSeleteMul(e){
+    const {index}=e.currentTarget.dataset;
+    var optionListOne = this.data.optionListOne
+    var optionList = this.data.optionList
+    optionListOne.option[index].selected = !optionListOne.option[index].selected
+    optionList[this.data.optionIndex] = optionListOne
 
+
+    this.setData({
+      optionListOne,
+      optionList
+    })
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+  getScore(){
+    var allScore = 0
+    var that = this
+    this.data.optionList.forEach(function(item, index){
+      if(item.answer == that.data.sanswer[index]){
+        allScore = allScore + 10 
+      } 
+    })
 
-  },
+    wx.setStorageSync('allScore', allScore)
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+    wx.navigateTo({
+      url: '../score/score',
+    })
 
+    this.setData({
+      allScore
+    })
   }
 })
