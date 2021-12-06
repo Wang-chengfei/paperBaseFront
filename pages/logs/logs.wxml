@@ -16,13 +16,5 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <navigator class="exrecord">
-      练习记录
-    </navigator>
-    <navigator class="terecord">
-      测试记录
-    </navigator>
-  </view>
 </view>
   

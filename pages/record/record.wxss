@@ -72,5 +72,5 @@
 }
 
 .but button{
-  width: 200rpx;
+  width: 250rpx;
 }

@@ -149,6 +149,7 @@ Page({
     this.setData({
       optionIndex,
       optionListOne,
+      buttonT:"下一题"
     })
   },
 

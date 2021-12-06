@@ -33,7 +33,8 @@ Page({
     this.setData({
       optionIndex,
       optionListOne,
-      answer
+      answer,
+      buttonT:"下一题"
     })
   },
 
