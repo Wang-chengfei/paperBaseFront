@@ -95,7 +95,8 @@ Page({
          that.setData({
            option,
            content: adata.content,
-           answer:adata.answer
+           answer:adata.answer,
+		   iconIndex:""
          })
 
         }
