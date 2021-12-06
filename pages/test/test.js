@@ -52,33 +52,34 @@ Page({
 
   onLoad: function () {
     this.getQuestion()
-    var optionListOne = this.data.optionList[this.data.optionIndex]
-    this.setData({
-      optionListOne
-    })
+
+    // var optionListOne = this.data.optionList[this.data.optionIndex]
+    // this.setData({
+    //   optionListOne
+    // })
   },
 
   getQuestion(){
     var that = this
     wx.request({
-      url: 'http://localhost:8080/paper/getOne', //仅为示例，并非真实的接口地址
+      url: 'http://localhost:8080/paper/getExam', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json' // 默认值
       },
       success (res) {
-        console.log(res.data)
+        
         var adata = res.data.data
-
+        console.log(adata)
         var optionList = []
 
         adata.forEach(function(item, index){
+          let paper = {}
           if(item.type == 0){
-            optionList[index].chanceType = "单选"
-            optionList[index].chanceB = true
-            
+            paper.chanceType = "单选"
+            paper.chanceB = true
           }else{
-            optionList[index].chanceType = "多选"
-            optionList[index].chanceB = false
+            paper.chanceType = "多选"
+            paper.chanceB = false
           }
           var option = [
             {
@@ -119,15 +120,24 @@ Page({
             option = option.concat(roption)
            }
 
-           optionList[index].option = option
-           optionList[index].content = item.content 
-           optionList[index].answer = item.answer 
+          //  optionList[index].option = option
+          //  optionList[index].content = item.content 
+          //  optionList[index].answer = item.answer 
+          paper.option = option
+          paper.content = item.content 
+          paper.answer = item.answer 
+          optionList.push(paper)
         })
         
 
          that.setData({
            optionList,
          })
+         var optionListOne = optionList[that.data.optionIndex]
+         that.setData({
+           optionListOne
+         })
+         console.log(that.data.optionList);
 
         }
     })
@@ -162,7 +172,6 @@ Page({
 
     var optionIndex = this.data.optionIndex + 1
     var optionListOne = this.data.optionList[optionIndex]
-    console.log(this.data.optionList.length + 1+ "" +optionIndex);
     
     if( optionIndex == this.data.optionList.length - 1 ){
       this.setData({
@@ -186,6 +195,7 @@ Page({
     var optionListOne = this.data.optionListOne
     var optionList = this.data.optionList
     optionListOne.iconIndex = index
+    optionListOne.option[index].selected = true
     optionList[this.data.optionIndex] = optionListOne
 
     var sanswer = this.data.sanswer
@@ -222,6 +232,7 @@ Page({
     })
 
     wx.setStorageSync('allScore', allScore)
+    wx.setStorageSync('optionList', this.data.optionList)
 
     wx.navigateTo({
       url: '../score/score',

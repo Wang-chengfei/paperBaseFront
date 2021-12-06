@@ -1,1 +1,76 @@
-/* pages/record/record.wxss */
+
+.contain{
+  word-wrap: break-word;
+  margin: 20rpx;
+}
+
+.chance-type{
+  display: inline-block;
+  font-size: large;
+  border: 1px solid rgb(4, 201, 4);
+  color: rgb(4, 201, 4);
+}
+.topic{
+  width: 100%;
+  font-size: larger;
+}
+
+.option_wrap{
+  margin-top: 70rpx;
+  font-size: large;
+}
+
+.option_item{
+  display: flex;
+  margin-bottom: 40rpx;
+}
+
+.option_icon{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconplus{
+  background-color: rgb(4, 201, 4);
+}
+
+.option_icon view{
+  text-align: center;
+  line-height: 70rpx;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  border: 1rpx solid gray;
+}
+
+.option_content{
+  flex: 5;
+  width: 500rpx;
+  word-wrap: break-word;
+}
+
+.botton{
+  margin: 10rpx;
+  position: fixed;
+  width: 98%;
+  left: 0;
+  bottom: 0;
+}
+
+.answer{
+  margin-bottom: 30rpx;
+}
+.answer text{
+  font-size: larger;
+  color: rgb(4, 201, 4);
+}
+
+.but{
+  display: flex;
+}
+
+.but button{
+  width: 200rpx;
+}

@@ -7,25 +7,25 @@ App({
     wx.setStorageSync('logs', logs)
 
     // 登录
-    wx.login({
-      success(res) {
-        console.log(res.code);
-        if (res.code) {
-          wx.request({
-            url: 'http://localhost:8080/getOpenid',
-            data: {
-              code: res.code
-            },
-            success: function (res) {
-              console.log(res);
-              console.log(res.data)
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
+    // wx.login({
+    //   success(res) {
+    //     console.log(res.code);
+    //     if (res.code) {
+    //       wx.request({
+    //         url: 'http://localhost:8080/getOpenid',
+    //         data: {
+    //           code: res.code
+    //         },
+    //         success: function (res) {
+    //           console.log(res);
+    //           console.log(res.data)
+    //         }
+    //       })
+    //     } else {
+    //       console.log('登录失败！' + res.errMsg)
+    //     }
+    //   }
+    // })
   },
   globalData: {
     userInfo: null

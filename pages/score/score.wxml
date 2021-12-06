@@ -2,3 +2,8 @@
 <view class="container">
 <text>{{allScore}}</text> 分
 </view>
+<view class="bottom">
+   <button bindtap="handReturn" type="primary">退出</button>
+    <button bindtap="handLook" type="primary">查看详情</button>
+</view>
+

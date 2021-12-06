@@ -1,6 +1,5 @@
 <!--pages/test/test.wxml-->
-<view class="contain"
->
+<view class="contain">
   <view class="chance-type">{{optionListOne.chanceType}}</view>
   <view class="topic">
   {{optionIndex+1}}.{{optionListOne.content}}

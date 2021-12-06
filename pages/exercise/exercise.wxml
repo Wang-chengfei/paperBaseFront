@@ -32,10 +32,10 @@
 <view class="botton">
   <view class="answer" wx:if="{{isAnswer}}">
   正确答案为： <text>{{answer}}</text>
-</view>
-<view class="but">
-  <button type="primary"  bindtap="handIsAnswer">{{buttonT}}</button>
-</view>
+  </view>
+  <view class="but">
+    <button type="primary"  bindtap="handIsAnswer">{{buttonT}}</button>
+  </view>
 </view>
 
 

@@ -3,3 +3,18 @@
   font-size: 80rpx;
   color: rgb(4, 201, 4);
 }
+
+.bottom{
+  margin-bottom: 20rpx;
+  width: 98%;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  bottom: 0;
+  
+}
+
+.bottom button{
+  width: 200rpx;
+}

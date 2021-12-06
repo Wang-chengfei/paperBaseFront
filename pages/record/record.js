@@ -1,66 +1,67 @@
-// pages/record/record.js
+// pages/test/test.js
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    optionList:[], 
+    optionIndex:0,
+    // 单个题目
+    optionListOne:{},
+    sanswer:[],
+    answer:"",
+    buttonT:"下一题",
+    allScore:0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function () {
+    var optionList = wx.getStorageSync('optionList')
+    var optionListOne = optionList[this.data.optionIndex]
+    var answer = optionListOne.answer
+    this.setData({
+      optionList,
+      optionListOne,
+      answer
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
+
+  handLast(){
+    var optionIndex = this.data.optionIndex - 1
+    var optionListOne = this.data.optionList[optionIndex]
+    var answer = optionListOne.answer
+    this.setData({
+      optionIndex,
+      optionListOne,
+      answer
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  handNext(){
 
+    var optionIndex = this.data.optionIndex + 1
+    var optionListOne = this.data.optionList[optionIndex]
+    
+    if( optionIndex == this.data.optionList.length - 1 ){
+      var answer = optionListOne.answer
+      this.setData({
+        optionIndex,
+        optionListOne,
+        buttonT:"退出",
+        answer
+      })
+    }else if(optionIndex == this.data.optionList.length ){
+      wx.switchTab({
+        url: '../index/index',
+      })
+    }else{
+      var answer = optionListOne.answer
+      this.setData({
+        optionIndex,
+        optionListOne,
+        answer
+      })
+    }
+   
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

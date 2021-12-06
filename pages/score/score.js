@@ -18,5 +18,14 @@ Page({
     })
   },
 
-
+  handReturn(){
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
+  handLook(){
+    wx.navigateTo({
+      url: '../record/record',
+    })
+  }
 })
